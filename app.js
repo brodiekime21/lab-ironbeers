@@ -7,11 +7,20 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+
 var app = express();
+
+const hbs = require('hbs') //if using partials and hbs need to require here before
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+
+
+hbs.registerPartials(path.join(__dirname, 'views/partials')); //must register partials after view engine is set to hbs
+
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -37,5 +46,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;

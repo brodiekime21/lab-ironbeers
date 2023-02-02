@@ -5,6 +5,7 @@ const PunkAPIWrapper = require('punkapi-javascript-wrapper')
 const punkAPI = new PunkAPIWrapper()
 
 
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index.hbs', { title: 'Home' });
@@ -31,6 +32,14 @@ router.get('/random-beer', ((req, res, next)=>{
   })
   .catch(error => console.log(error));
 
+}))
+
+router.get('/beer/:id', ((req,res,next)=>{
+  punkAPI
+    .getBeer(req.params.id)
+    .then((beersFromApi)=>{
+      res.render('beerdetail.hbs',{beersFromApi})
+    })
 }))
 
 module.exports = router;
